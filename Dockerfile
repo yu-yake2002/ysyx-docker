@@ -9,11 +9,14 @@ RUN sed -i s:/archive.ubuntu.com:/mirrors.tuna.tsinghua.edu.cn/ubuntu:g /etc/apt
 # Prerequisites:
 RUN apt-get install -y ca-certificates \
     && apt-get install -y build-essential gdb git libreadline-dev libsdl2-dev llvm-11 llvm-11-dev \
+    && ln -s /usr/bin/llvm-config-11 /usr/bin/llvm-config \
     && apt-get install -y g++-riscv64-linux-gnu binutils-riscv64-linux-gnu openjdk-17-jdk \
     && apt-get install -y help2man perl python3 make autoconf g++ flex bison ccache libgoogle-perftools-dev numactl perl-doc libfl2 libfl-dev zlib1g zlib1g-dev \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y gtkwave \
-    && apt-get clean \
-    && cd ~ \
+    && apt-get clean
+
+# Verilator
+RUN cd ~ \
     && git clone https://github.com/verilator/verilator \
     && unset VERILATOR_ROOT \
     && cd verilator && git pull && git checkout v5.008 \
@@ -21,7 +24,7 @@ RUN apt-get install -y ca-certificates \
     && ./configure \
     && make -j `nproc` \
     && make install \
-    && rm -rf ./verilator
+    && cd ~ && rm -rf ./verilator
 
 # Clone ysyx-workbench
 RUN cd ~ \
