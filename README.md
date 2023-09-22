@@ -29,6 +29,8 @@ docker pull yuyake2002/osoc:v1.0
 
 ## Build the Image (Optional)
 
+The following command assigns the github repo for Dockerfile: 
+
 ```bash
 docker build -t ysyx-exam https://github.com/yu-yake2002/ysyx-docker.git
 ```
@@ -42,13 +44,13 @@ ysyx-exam         latest    0a3077a99b1f   13 hours ago   2.21GB
 
 ## Run the Container
 
-Firstly you may want to try
+Firstly you may want to try: 
 
 ```bash
 docker run -it yuyake2002/osoc:v1.0
 ```
 
-But you will find the container has no GUI at all. In order to test the PAL's display, you can use X11 like this
+But you will find the container has no GUI at all. In order to test the PAL's display, you can use X11 like this: 
 
 ```bash
 docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix \
